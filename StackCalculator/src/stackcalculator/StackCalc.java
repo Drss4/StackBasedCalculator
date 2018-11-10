@@ -20,6 +20,7 @@ public class StackCalc
             //that can be performed
             if (args.length > 2) 
             {
+                  if (args[0].equals("-p") || args[0].equals(--postfix))
                   {
                         for (int i = 0; i < args.length; i++)
                         {
