@@ -1,12 +1,9 @@
-import java.util.ArrayList;
-import java.util.Stack;
 
-import org.omg.CORBA.portable.ValueInputStream;
+import java.util.Stack;
 
 public class StackCalc 
 {
-      static String validOperands = "0123456789";
-      static String validOperators = "*()+-%/";
+      static String validOperators = " * ()+-%/";
       static boolean failed = false;
       /**
        * 
@@ -20,7 +17,7 @@ public class StackCalc
             //that can be performed
             if (args.length > 2) 
             {
-                  if (args[0].equals("-p") || args[0].equals(--postfix))
+                  if (args[0].equals("-p"))
                   {
                         for (int i = 0; i < args.length; i++)
                         {
@@ -31,7 +28,7 @@ public class StackCalc
                   {
                         for (int i = 0; i < args.length; i++)
                         {
-                              if (validOperands.contains(args[i]))
+                              if (args[i].matches("\\d+(\\.\\d+)?"))
                               {
                                     operands.push(args[i]);
                                     
@@ -69,7 +66,6 @@ public class StackCalc
                   }
                   System.out.println("");
                   double result = calculate(postfix);
-                  //
                   if (!failed && Double.isFinite(result))
                   {
                         System.out.println("result : " + result);
@@ -99,7 +95,7 @@ public class StackCalc
             Double tempresult;
             while (!postfix.isEmpty())
             {
-                  if (validOperands.contains(postfix.peek()))
+                  if (postfix.peek().matches("\\d+(\\.\\d+)?"))
                   {
                         result.push(Double.parseDouble(postfix.pop()));
                   }
@@ -115,7 +111,7 @@ public class StackCalc
                                     tempresult = result.pop() - result.pop();
                                     result.push(tempresult);
                                     break;
-                              case"*":
+                              case" * ":
                                     tempresult = result.pop() * result.pop();
                                     result.push(tempresult);
                                     break;
